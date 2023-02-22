@@ -4,6 +4,8 @@
     import Icon from '@iconify/svelte';
     import { onClient } from '@/helpers/on-client';
     import { dndzone } from "svelte-dnd-action";
+    import { flip } from 'svelte/animate';
+
 
     let tasks; 
 
@@ -33,6 +35,12 @@
         });
     }
 
+    async function handleNewTaskKeyUp(e) {
+        if(e.key == "Enter") {
+            await doAddTask();
+        }
+    }
+
 </script> 
 
 <div class="task-list"> 
@@ -42,6 +50,7 @@
                 class="new-task-input"
                 type="text" 
                 bind:value={addTaskText}
+                on:keyup={handleNewTaskKeyUp}
                 style="
                     font-size: 20px; 
                     outline: none;
@@ -62,12 +71,14 @@
         {#if $tasks.length > 0}
             <div    
                 class="items" 
-                use:dndzone={{items: $tasks, dropTargetStyle: {}}}
+                use:dndzone={{items: $tasks, duration: 300, dropTargetStyle: {}}}
                 on:consider={onConsider}
                 on:finalize={onFinalize} > 
-                    {#each $tasks as task, index (task.id) }
+                {#each $tasks as task, index (task.id) }
+                    <div animate:flip={{duration: 300}}>
                         <TaskItem {task} {index} />
-                    {/each}
+                    </div>
+                {/each}
             </div>
         {:else} 
             <div class="no-tasks"> 

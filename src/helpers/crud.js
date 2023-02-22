@@ -31,7 +31,6 @@ export function crud(store) {
         let _items = await all();
         let _ids = _filtered.map(x => x.id);
         _items = _items.filter(item => _ids.indexOf(item.id) == -1) 
-        console.log(_items)
         store.set(_items);
     }
 
