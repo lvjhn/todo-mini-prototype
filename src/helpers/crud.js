@@ -31,7 +31,7 @@ export function crud(store) {
         let _items = await all();
         let _ids = _filtered.map(x => x.id);
         _items = _items.filter(item => _ids.indexOf(item.id) == -1) 
-        store.set(_items);
+        await store.set(_items);
     }
 
     async function patch(filter, patchFn) {
@@ -42,7 +42,7 @@ export function crud(store) {
             if(_ids.indexOf(_item.id) == -1) continue; 
             patchFn(_item);
         }
-        store.set(_items);
+        await store.set(_items);
     }
 
     async function create(data) {
@@ -52,7 +52,7 @@ export function crud(store) {
         }
         const items = await all(); 
         items.push(item);
-        store.set(items);
+        await store.set(items);
     }
 
     return {
