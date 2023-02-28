@@ -13,20 +13,12 @@
 </script> 
 
 <div class="home">  
-    {#if loaded}    
-        <div class="task-header"> 
-            <h1>Todo-Mini</h1>
-        </div>
-        <div class="task-list-container">
-            <TaskList />
-        </div>
-    {:else} 
-        <div class="loading"> 
-            <div class="loading-text"> 
-                Loading app...
-            </div> 
-        </div> 
-    {/if}
+    <div class="task-header"> 
+        <h1>Todo-Mini</h1>
+    </div>
+    <div class="task-list-container">
+        <TaskList />
+    </div>
 </div>
 
 <style lang="scss"> 
@@ -35,10 +27,6 @@
         margin: 200px auto;
 
         .task-header {
-            text-align: center;
-        }
-
-        .loading {
             text-align: center;
         }
     }
